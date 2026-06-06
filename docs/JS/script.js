@@ -542,5 +542,3 @@ productoGraficoSelect.addEventListener('change', () => {
 document.addEventListener('DOMContentLoaded', () => {
   actualizarCasosDePrueba();
 });
-
-

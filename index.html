@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Simulador web de compras familiares, aumento de precios y poder adquisitivo." />
+  <title>Simulador de Compras Familiares</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS\style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__content">
+      <div class="brand">
+        <h1>Simulador de Compras Familiares</h1>
+        <p>Comparación mensual de gastos, precios y poder adquisitivo</p>
+      </div>
+
+      <nav class="nav" aria-label="Menú principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#contexto">Contexto</a>
+        <a href="#simulador">Simulador</a>
+        <a href="#resultados">Resultados</a>
+        <a href="#graficos">Gráficos</a>
+        <a href="#casos-estudio">Casos de estudio</a>
+        <a href="#conclusiones">Conclusiones</a>
+        <a href="#creditos">Créditos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main container">
+    <section id="inicio" class="section hero">
+      <div class="section__header">
+        <h2>Inicio</h2>
+        <p>
+          Esta página permite registrar productos por mes, calcular el gasto familiar,
+          comparar aumentos de precios y visualizar cómo cambia el poder adquisitivo.
+        </p>
+      </div>
+
+      <div class="hero__cards">
+        <article class="card">
+          <h3>Objetivo</h3>
+          <p>Analizar la evolución de los precios y el impacto en el presupuesto familiar.</p>
+        </article>
+
+        <article class="card">
+          <h3>Función principal</h3>
+          <p>Registrar meses y productos para generar tablas y gráficos dinámicos.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contexto" class="section">
+      <div class="section__header">
+        <h2>Contexto</h2>
+        <p>Una familia mantiene el mismo ingreso mensual, pero los precios cambian con el tiempo.</p>
+      </div>
+
+      <article class="card">
+        <p>
+          Cuando los precios aumentan, una familia puede comprar menos con el mismo ingreso.
+          Este simulador ayuda a visualizar ese cambio de forma simple e interactiva.
+        </p>
+      </article>
+    </section>
+
+    <section id="simulador" class="section">
+      <div class="section__header">
+        <h2>Simulador</h2>
+        <p>Agrega meses, productos y compara los resultados.</p>
+      </div>
+
+      <article class="card form-card">
+        <div class="grid grid--2">
+          <div class="field">
+            <label for="ingresoFamiliar">Ingreso familiar mensual (Bs)</label>
+            <input type="number" id="ingresoFamiliar" min="0" step="0.01" placeholder="Ej. 500" />
+          </div>
+
+          <div class="field">
+            <label for="mesNombre">Mes</label>
+            <input type="text" id="mesNombre" placeholder="Ej. Enero" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="btnAgregarMes">Agregar mes</button>
+          <button type="button" id="btnLimpiarTodo" class="button--secondary">Limpiar todo</button>
+        </div>
+      </article>
+
+      <div id="contenedorMeses" class="months"></div>
+
+      <article class="card form-card">
+        <h3>Acciones</h3>
+        <div class="actions">
+          <button type="button" id="btnCalcular">Calcular resultados</button>
+          <button type="button" id="btnCargarEjemplo" class="button--secondary">Cargar caso de estudio</button>
+        </div>
+        <p class="note">
+          Puedes agregar varios meses y, dentro de cada mes, varios productos con su precio y cantidad.
+        </p>
+      </article>
+    </section>
+
+    <section id="resultados" class="section">
+      <div class="section__header">
+        <h2>Resultados</h2>
+        <p>Los cálculos se muestran dinámicamente en la página.</p>
+      </div>
+
+      <div id="resultadoGeneral" class="results-grid"></div>
+      <div id="tablaComparativa" class="table-wrap"></div>
+    </section>
+
+    <section id="graficos" class="section">
+      <div class="section__header">
+        <h2>Gráficos</h2>
+        <p>Visualización de gasto mensual y poder adquisitivo.</p>
+      </div>
+
+      <div class="grid grid--2">
+        <article class="card chart-card">
+          <h3>Evolución del gasto mensual</h3>
+          <div class="chart-box">
+            <canvas id="graficoGasto" aria-label="Gráfico de gasto mensual" role="img"></canvas>
+          </div>
+        </article>
+
+        <article class="card chart-card">
+          <h3>Aumento de precios y poder adquisitivo</h3>
+          <div class="field chart-select">
+            <label for="productoGrafico">Producto a analizar</label>
+            <select id="productoGrafico">
+              <option value="">Selecciona un producto</option>
+            </select>
+          </div>
+          <div class="chart-box">
+            <canvas id="graficoPrecios" aria-label="Gráfico de precios y poder adquisitivo" role="img"></canvas>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="casos-estudio" class="section">
+      <div class="section__header">
+        <h2>Casos de estudio para probar</h2>
+        <p>Ejemplos precargados para verificar el funcionamiento del simulador.</p>
+      </div>
+
+      <article class="card">
+        <p>
+          Aquí se mostrarán ejemplos precargados para verificar que el simulador funcione correctamente.
+        </p>
+        <div id="casosDePrueba" class="cases"></div>
+      </article>
+    </section>
+
+    <section id="conclusiones" class="section">
+      <div class="section__header">
+        <h2>Conclusiones</h2>
+        <p>Interpretación del impacto de la variación de precios.</p>
+      </div>
+
+      <article class="card">
+        <p>
+          La variación de precios afecta directamente la capacidad de compra de una familia.
+          Este simulador permite observar ese impacto mes a mes.
+        </p>
+      </article>
+    </section>
+
+    <section id="creditos" class="section">
+      <div class="section__header">
+        <h2>Créditos</h2>
+        <p>Información del autor del proyecto.</p>
+      </div>
+
+      <article class="card">
+        <p><strong>Estudiante:</strong> Wily Aaron Quispe Alanoca</p>
+        <p><strong>Materia:</strong> Programación Web I</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Proyecto final de Programación Web I</p>
+    </div>
+  </footer>
+
+  <script src="javascript\script.js"></script>
+</body>
+</html>
